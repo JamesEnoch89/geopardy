@@ -1,13 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Geopardy</title>
-    <link rel="stylesheet" href="/screen.css">
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-    <script src="/main.js" charset="utf-8"></script>
-  </body>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Celebrity Geopardy</title>
+  <link rel="stylesheet" href="./screen.css">
+</head>
+
+<body ng-app="mainApp" ng-controller="mainController">
+  <section class="Logo">
+    <h1>Let's Play Geopardy!</h1>
+  </section>
+
+  <section class="gameboard-container" ng-hide="clueCard">
+    <table>
+      <thead>
+        <tr>
+          <th ng-repeat=" category in categories track by $index ">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="wager in wagers track by $index "></tr>
+        <td ng-repeat="clue in wager.clues track by $index">
+            <p><span ng-show="wager.clues[$index].hide" ng-click="displayClue(wager.clues[$index], wager.value)">${{wager.value}}</span></p>
+         </td>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5 ">
+            {{jeoPlayer.name}} Score: $ {{jeoPlayer.score}}
+          <button class="playAgain " ng-click="playAgain() " ng-show="playAgainShow"></button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
+  <section class="showAnswer" ng-show"showClue">
+    <section>
+      <p>{{jeoClue.category.title}}</p>
+      <p>{{jeoWager}}</p>
+    </section>
+    <h1>{{jeoClue.question}}</h1>
+    <section>
+      <p>{{jeoPlayer.name}}</p>
+    <input type="text" ng-model="clueAnswer" placeholder="answer"/>
+    <button ng-click="answerCheck()">Submit Your Answer</button>
+    </section>
+  </section>
+
+
+
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js "></script>
+  <script src="./main.js " charset="utf-8 "></script>
+</body>
+
 </html>
